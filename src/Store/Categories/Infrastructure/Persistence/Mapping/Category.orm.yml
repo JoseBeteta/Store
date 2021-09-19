@@ -1,0 +1,11 @@
+App\Store\Categories\Domain\Category:
+  type: entity
+  table: category
+  id:
+    id:
+      type: CategoryId
+
+  embedded:
+    name:
+      class: App\Store\Categories\Domain\CategoryName
+      columnPrefix: name_

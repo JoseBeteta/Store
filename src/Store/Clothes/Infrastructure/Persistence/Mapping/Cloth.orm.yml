@@ -1,0 +1,27 @@
+App\Store\Clothes\Domain\Cloth:
+  type: entity
+  table: cloth
+  id:
+    sku:
+      type: Sku
+
+  embedded:
+    name:
+      class: App\Store\Clothes\Domain\ClothName
+      columnPrefix: name_
+    price:
+      class: App\Store\Clothes\Domain\ClothPrice
+      columnPrefix: price_
+
+  manyToOne:
+    category:
+      targetEntity: App\Store\Categories\Domain\Category
+      joinColumn:
+        name: category_id
+        referencedColumnName: id
+
+    discount:
+      targetEntity: App\Store\Discounts\Domain\Discount
+      joinColumn:
+        name: discount_id
+        referencedColumnName: id

@@ -1,0 +1,7 @@
+App\Store\Discounts\Domain\Percentage:
+  type: embeddable
+
+  fields:
+    value:
+      type: integer
+      nullable: false

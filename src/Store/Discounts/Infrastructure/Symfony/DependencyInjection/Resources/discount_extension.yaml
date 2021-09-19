@@ -1,0 +1,3 @@
+imports:
+  - { resource: services/_discount_services.yaml }
+  - { resource: infrastructure/_discount_infrastructure.yaml }

@@ -1,0 +1,7 @@
+App\Store\Categories\Domain\CategoryName:
+  type: embeddable
+
+  fields:
+    value:
+      type: string
+      nullable: false

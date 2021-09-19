@@ -1,0 +1,44 @@
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                dbname: '%env(resolve:WEB_DATABASE_NAME)%'
+                host: '%env(resolve:WEB_DATABASE_HOST)%'
+                port: '%env(resolve:WEB_DATABASE_PORT)%'
+                user: '%env(resolve:WEB_DATABASE_USER)%'
+                password: '%env(resolve:WEB_DATABASE_PASSWORD)%'
+                driver: 'pdo_mysql'
+                server_version: '8.0'
+                charset: utf8mb4
+                logging: false
+                profiling: false
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_unicode_ci
+
+        types:
+            DiscountId: App\Store\Discounts\Infrastructure\Persistence\Type\DoctrineDiscountId
+            CategoryId: App\Store\Categories\Infrastructure\Persistence\Type\DoctrineCategoryId
+            Sku: App\Store\Clothes\Infrastructure\Persistence\Type\DoctrineSku
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            Discount:
+                type: yml
+                dir: '%kernel.project_dir%/src/Store/Discounts/Infrastructure/Persistence/Mapping'
+                prefix: App\Store\Discounts\Domain
+                is_bundle: false
+            Category:
+                type: yml
+                dir: '%kernel.project_dir%/src/Store/Categories/Infrastructure/Persistence/Mapping'
+                prefix: App\Store\Categories\Domain
+                is_bundle: false
+            Cloth:
+                type: yml
+                dir: '%kernel.project_dir%/src/Store/Clothes/Infrastructure/Persistence/Mapping'
+                prefix: App\Store\Clothes\Domain
+                is_bundle: false

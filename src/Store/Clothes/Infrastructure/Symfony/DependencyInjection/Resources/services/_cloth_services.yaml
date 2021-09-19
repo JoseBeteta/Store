@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  App\Store\Clothes\Infrastructure\UI\Http\Controller\GetClothesController:
+
+  App\Store\Clothes\Application\Query\GetTotalPrice\GetClothesWithDiscountsAppliedQueryHandler:
+    tags: [{ name: messenger.message_handler, bus: query.bus }]
+    autoconfigure: true

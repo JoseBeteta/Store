@@ -1,0 +1,3 @@
+imports:
+  - { resource: services/_cloth_services.yaml }
+  - { resource: infrastructure/_cloth_infrastructure.yaml }

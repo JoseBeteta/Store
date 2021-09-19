@@ -1,0 +1,20 @@
+App\Store\Discounts\Domain\Discount:
+  type: entity
+  table: discount
+  id:
+    id:
+      type: DiscountId
+
+  embedded:
+    percentage:
+      class: App\Store\Discounts\Domain\Percentage
+      columnPrefix: percentage_
+
+## Relationships
+
+  manyToOne:
+    category:
+      targetEntity: App\Store\Categories\Domain\Category
+      joinColumn:
+        name: category_id
+        referencedColumnName: id

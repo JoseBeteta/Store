@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  App\Store\Categories\Domain\Category\DiscountRepositoryInterface: '@App\Store\Discounts\Infrastructure\Persistence\DoctrineDiscountRepositoryInterface'
+  App\Store\Discounts\Infrastructure\Persistence\DoctrineDiscountRepositoryInterface:
+    arguments:
+      - '@doctrine.orm.default_entity_manager'

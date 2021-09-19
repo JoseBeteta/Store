@@ -1,0 +1,4 @@
+get_clothes_controller:
+  prefix: /api/clothes/
+  resource: App\Store\Clothes\Infrastructure\UI\Http\Controller\GetClothesController
+  type:     annotation

@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+#  ShoppingCart\Module\Seller\Application\Command\AddSeller\AddSellerCommandHandler:
+#    tags: [{ name: messenger.message_handler, bus: command.bus }]
+#    autoconfigure: true
+#
+#  ShoppingCart\Module\Seller\Application\Command\DeleteSeller\DeleteSellerCommandHandler:
+#    tags: [{ name: messenger.message_handler, bus: command.bus }]
+#    autoconfigure: true

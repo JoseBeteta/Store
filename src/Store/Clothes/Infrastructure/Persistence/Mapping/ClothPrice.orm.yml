@@ -1,0 +1,7 @@
+App\Store\Clothes\Domain\ClothPrice:
+  type: embeddable
+
+  fields:
+    value:
+      type: integer
+      nullable: false

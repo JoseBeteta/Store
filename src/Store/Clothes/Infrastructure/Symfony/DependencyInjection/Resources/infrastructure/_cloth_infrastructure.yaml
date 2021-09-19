@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  App\Store\Clothes\Domain\ClothRepositoryInterface: '@App\Store\Clothes\Infrastructure\Persistence\DoctrineClothRepository'
+  App\Store\Clothes\Infrastructure\Persistence\DoctrineClothRepository:
+    arguments:
+      - '@doctrine.orm.default_entity_manager'

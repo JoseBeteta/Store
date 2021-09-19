@@ -1,0 +1,7 @@
+App\Store\Clothes\Domain\ClothName:
+  type: embeddable
+
+  fields:
+    value:
+      type: string
+      nullable: false
