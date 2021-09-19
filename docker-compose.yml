@@ -43,7 +43,6 @@ services:
     env_file:
       - .env
     user: 0:0
-    command: bash -c "php -d memory_limit=256M /usr/bin/composer install && php bin/console doctrine:database:drop && php bin/console doctrine:database:create && php bin/console doctrine:schema:create && php bin/console doctrine:schema:update --force"
 
 volumes:
   mysql:

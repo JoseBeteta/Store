@@ -10,11 +10,3 @@ App\Store\Discounts\Domain\Discount:
       class: App\Store\Discounts\Domain\Percentage
       columnPrefix: percentage_
 
-## Relationships
-
-  manyToOne:
-    category:
-      targetEntity: App\Store\Categories\Domain\Category
-      joinColumn:
-        name: category_id
-        referencedColumnName: id

@@ -8,6 +8,7 @@ use App\Store\Clothes\Domain\Cloth;
 use App\Store\Clothes\Domain\ClothCollection;
 use App\Store\Clothes\Domain\ClothPrice;
 use App\Store\Clothes\Domain\ClothRepositoryInterface;
+use App\Store\Shared\Domain\Uuid;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -35,12 +36,26 @@ class DoctrineClothRepository extends EntityRepository implements ClothRepositor
 
         if ($priceLessThan) {
             $queryBuilder
-                ->andWhere('c.price.value < :priceLessThan')
+                ->andWhere('c.price.value <= :priceLessThan')
                 ->setParameter('priceLessThan', $priceLessThan->value());
         }
 
         $result = $queryBuilder->getQuery()->getResult();
 
         return new ClothCollection($result);
+    }
+
+    public function save(Cloth $cloth): void
+    {
+        $this->getEntityManager()->persist($cloth);
+        $this->getEntityManager()->flush();
+    }
+
+    public function saveCollection(ClothCollection $clothCollection): void
+    {
+        foreach ($clothCollection->getIterator() as $cloth) {
+            $this->getEntityManager()->persist($cloth);
+        }
+        $this->getEntityManager()->flush();
     }
 }

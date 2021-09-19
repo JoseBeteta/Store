@@ -28,8 +28,7 @@ class GetClothesController extends Controller
                 isset($data['priceLessThan']) ? (int) $data['priceLessThan'] : null
             )
         );
-
-        return $this->buildResponseForOk($clothesResponse->toArray());
+        return $this->buildResponseForOk($clothesResponse->toResponseArray());
     }
 
 

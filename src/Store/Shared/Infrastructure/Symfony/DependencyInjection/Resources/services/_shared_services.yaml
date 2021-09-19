@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  App\Store\Shared\Infrastructure\Symfony\Command\PrepareDatabaseCommand:
+    tags:
+      - { name: console.command }

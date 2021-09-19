@@ -11,4 +11,8 @@ interface ClothRepositoryInterface
         CategoryName $categoryName,
         ?ClothPrice $clothPrice = null
     ) : ClothCollection;
+
+    public function save(Cloth $cloth) : void;
+
+    public function saveCollection(ClothCollection $clothCollection) : void;
 }

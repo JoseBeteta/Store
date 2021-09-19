@@ -9,3 +9,10 @@ App\Store\Categories\Domain\Category:
     name:
       class: App\Store\Categories\Domain\CategoryName
       columnPrefix: name_
+
+  manyToOne:
+    discount:
+      targetEntity: App\Store\Discounts\Domain\Discount
+      joinColumn:
+        name: discount_id
+        referencedColumnName: id

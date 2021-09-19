@@ -8,16 +8,13 @@ use App\Store\Categories\Domain\Category;
 class Discount
 {
     private $id;
-    private $category;
     private $percentage;
 
     public function __construct(
         DiscountId $id,
-        Category $category,
         Percentage $percentage
     ) {
         $this->id = $id;
-        $this->category = $category;
         $this->percentage = $percentage;
     }
 

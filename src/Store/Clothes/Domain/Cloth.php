@@ -19,7 +19,7 @@ class Cloth
         ClothName $name,
         ClothPrice $price,
         Category $category,
-        ?Discount $discount
+        ?Discount $discount = null
     ) {
         $this->name = $name;
         $this->price = $price;
@@ -35,7 +35,9 @@ class Cloth
 
     public function calculateDiscountAmount(Discount $discount) : ClothPrice
     {
-        return new ClothPrice($this->price->value() * ($discount->percentage()->value() / 100));
+        $discountAmount = $this->price->value() * ($discount->percentage()->value() / 100);
+
+        return new ClothPrice((int) $discountAmount);
     }
 
     public function price() : ClothPrice
@@ -43,7 +45,7 @@ class Cloth
         return $this->price;
     }
 
-    public function discount() : ?Discount
+    public function discount() :? Discount
     {
         return $this->discount;
     }

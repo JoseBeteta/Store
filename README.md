@@ -31,11 +31,11 @@ This should start all the stack necessary to run the challenge.
 ### Usage
 I developed the challenge using a restful api, which contains 8 endpoints.
 
-###Seller
-- Add Seller
+###Request
+- Get clothes with discounts applied by the expected criteria.
 
 
-    POST /api/shopping_cart/seller
+    curl --location --request GET 'localhost:80/api/clothes/get?category=boots&priceLessThan=600000'
 
 Body request example with header "application/javascript":
 

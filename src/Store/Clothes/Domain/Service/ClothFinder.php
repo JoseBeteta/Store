@@ -9,18 +9,12 @@ use App\Store\Clothes\Application\DTO\ClothResponseCollection;
 use App\Store\Clothes\Domain\Cloth;
 use App\Store\Clothes\Domain\ClothRepositoryInterface;
 use App\Store\Clothes\Domain\ClothPrice;
-use App\Store\Discounts\Domain\DiscountRepositoryInterface;
 
 class ClothFinder
 {
-    private $discountRepository;
     private $clothRepository;
 
-    public function __construct(
-        ClothRepositoryInterface $clothRepository,
-        DiscountRepositoryInterface $discountRepository
-    ) {
-        $this->discountRepository = $discountRepository;
+    public function __construct(ClothRepositoryInterface $clothRepository) {
         $this->clothRepository = $clothRepository;
     }
 
@@ -55,24 +49,24 @@ class ClothFinder
 
     private function calculateDiscount(Cloth $cloth): array
     {
-        $discountByCategory = $this->discountRepository->findByCategory($cloth->category());
+        $discountByCategory = $cloth->category()->discount();
         $discount = $cloth->discount();
 
         if ($discountByCategory && $discount) {
             if ($discountByCategory->percentage()->value() > $discount->percentage()->value()) {
-                return [$cloth->calculateDiscountAmount($discountByCategory), $discount];
+                return [$cloth->calculateDiscountAmount($discountByCategory), $discountByCategory];
             }
             return [$cloth->calculateDiscountAmount($discount), $discount];
         }
 
         if ($discountByCategory) {
-            return [$cloth->calculateDiscountAmount($discount), $discount];
+            return [$cloth->calculateDiscountAmount($discountByCategory), $discountByCategory];
         }
 
         if ($discount) {
             return [$cloth->calculateDiscountAmount($discount), $discount];
         }
 
-        return [0, null];
+        return [new ClothPrice(0), null];
     }
 }

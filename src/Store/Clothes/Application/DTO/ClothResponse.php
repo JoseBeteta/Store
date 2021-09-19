@@ -15,7 +15,7 @@ class ClothResponse
     private $name;
     private $categoryName;
     private $priceWithoutDiscount;
-    private $priceWithDisocunt;
+    private $priceWithDiscount;
     private $discountPercentage;
 
     public function __construct(
@@ -24,14 +24,14 @@ class ClothResponse
         CategoryName $categoryName,
         ClothPrice $priceWithoutDiscount,
         ClothPrice $priceWithDisocunt,
-        Percentage $discountPercentage
+        ?Percentage $discountPercentage
     ) {
 
         $this->sku = $sku;
         $this->name = $name;
         $this->categoryName = $categoryName;
         $this->priceWithoutDiscount = $priceWithoutDiscount;
-        $this->priceWithDisocunt = $priceWithDisocunt;
+        $this->priceWithDiscount = $priceWithDisocunt;
         $this->discountPercentage = $discountPercentage;
     }
 
@@ -42,9 +42,9 @@ class ClothResponse
             'name' => $this->name->value(),
             'category' => $this->categoryName->value(),
             'price' => [
-                'original' => $this->priceWithoutDiscount,
-                'final' => $this->priceWithDisocunt,
-                'discount_percentage' => $this->discountPercentage,
+                'original' => $this->priceWithoutDiscount->value(),
+                'final' => $this->priceWithDiscount->value(),
+                'discount_percentage' => $this->discountPercentage ? $this->discountPercentage->value() . '%' : null,
                 'currency' => ClothPrice::CURRENCY
             ]
         ];

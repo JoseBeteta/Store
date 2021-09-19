@@ -3,3 +3,8 @@ services:
     autowire: true
     autoconfigure: true
     public: false
+
+  App\Store\Categories\Domain\Category\CategoryRepositoryInterface: '@App\Store\Categories\Infrastructure\Persistence\DoctrineCategoryRepositoryInterface'
+  App\Store\Categories\Infrastructure\Persistence\DoctrineCategoryRepositoryInterface:
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
