@@ -22,8 +22,3 @@ WORKDIR /var/www/symfony
 COPY . /var/www/symfony
 
 RUN composer install
-RUN php php bin/console doctrine:database:drop --force
-RUN php bin/console doctrine:database:create
-RUN php bin/console doctrine:schema:create
-RUN php bin/console doctrine:schema:update --force
-RUN php bin/console mytheresa:database:prepare

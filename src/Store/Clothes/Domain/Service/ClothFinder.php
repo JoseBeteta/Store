@@ -20,12 +20,12 @@ class ClothFinder
 
     public function __invoke(
         CategoryName $categoryName,
-        ?ClothPrice $price = null
+        ?ClothPrice $priceLessThan = null
     ): ClothResponseCollection
     {
         $clothes = $this->clothRepository->findAllBy(
             $categoryName,
-            $price
+            $priceLessThan
         );
 
         $clothesResponse = [];

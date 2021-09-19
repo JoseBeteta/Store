@@ -8,21 +8,19 @@ use App\Store\Clothes\Application\Query\GetClothesWithDiscountsAppliedQuery;
 use App\Store\Clothes\Application\Query\GetClothesWithDiscountsAppliedQueryHandler;
 use App\Store\Clothes\Domain\ClothPrice;
 use App\Store\Clothes\Domain\Service\ClothFinder;
-use App\Store\Shared\Domain\PositiveIntegerValueObject;
-use App\Store\Shared\Domain\StringValueObject;
 use PHPUnit\Framework\TestCase;
 
 class GetClothesWithDiscountsAppliedQueryHandlerTest extends TestCase
 {
-    private $clothFinder;
+    private $clothFinderMock;
     private $queryHandler;
 
     public function setUp() : void
     {
-        $this->clothFinder = $this->createMock(ClothFinder::class);
+        $this->clothFinderMock = $this->createMock(ClothFinder::class);
 
         $this->queryHandler = new GetClothesWithDiscountsAppliedQueryHandler(
-            $this->clothFinder
+            $this->clothFinderMock
         );
     }
 
@@ -31,10 +29,7 @@ class GetClothesWithDiscountsAppliedQueryHandlerTest extends TestCase
         $category = 'boots';
         $priceLessThan = 13000;
 
-        $this->clothFinder
-            ->expects($this->once())
-            ->method('__invoke')
-            ->with([new CategoryName($category), new ClothPrice($priceLessThan)]);
+        $this->thenClothFinderShouldInvoke($category, $priceLessThan);
 
         ($this->queryHandler)(new GetClothesWithDiscountsAppliedQuery(
             $category,
@@ -46,16 +41,20 @@ class GetClothesWithDiscountsAppliedQueryHandlerTest extends TestCase
     public function testThatCallsFinderWithNullablePriceLessThan()
     {
         $category = 'boots';
-        $priceLessThan = 13000;
 
-        $this->clothFinder
-            ->expects($this->once())
-            ->method('__invoke')
-            ->with([new CategoryName($category), null]);
+        $this->thenClothFinderShouldInvoke($category, null);
 
         ($this->queryHandler)(new GetClothesWithDiscountsAppliedQuery(
             $category,
             null
         ));
+    }
+
+    private function thenClothFinderShouldInvoke(string $category, ?int $priceLessThan): void
+    {
+        $this->clothFinderMock
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with(new CategoryName($category), $priceLessThan ? new ClothPrice($priceLessThan) : null);
     }
 }

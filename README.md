@@ -1,4 +1,4 @@
-Mytheresa store chalange by Jose Beteta
+Mytheresa store challenge by Jose Beteta
 ========================================
 
 This is my implementation of your tech challenge, hope you like it.
@@ -10,123 +10,49 @@ This is my implementation of your tech challenge, hope you like it.
 As i understood in the challenge description the application of the discounts where free to 
 choose, so, I applied due the categories.
 
-### Raise containers
+Also i didn't put manny comments in the code because i like to think that my code its self explanatory/ubiquitous.
+If you have any doubt about the implementation don't hesitate to ask.
 
-First lets build the necessary images to raise the containers with the following command inside the project directory.
+I've developed the challenge with my best practices experience, and my Hexagonal Architecture and DDD knowledge. 
 
-    sudo docker-compose build 
+### Raise project
 
-This will build the images of `nginx` exposing the port 80 to send the requests and `php`.
-Then let's raise the containers.
-
-    sudo docker-compose up -d 
-
-Let's install the dependencies with composer.
-
-    sudo docker exec -it php_con composer install 
+The following command will:
+* Start the containers (nginx, php, mysql).
+* Run composer.
+* Initialize the database and hydrate the database.
 
 
-This should start all the stack necessary to run the challenge.
+
+    make start 
 
 ### Usage
-I developed the challenge using a restful api, which contains 8 endpoints.
-
-###Request
-- Get clothes with discounts applied by the expected criteria.
-
-
-    curl --location --request GET 'localhost:80/api/clothes/get?category=boots&priceLessThan=600000'
-
-Body request example with header "application/javascript":
-
-    {
-    	"seller_name" : "Cruz roja"
-    } 
-
-Response resource uuid:
+I developed a restfull api with the endpoint requested:
+* Allowed params (category, priceLessThan).
+* Category mandatory, priceLessThan optional.
 
 
-    {"resource_id":"cfa1f58d-a235-480d-adad-71bad26f8bae"}
 
-- Delete Seller
+    curl --location --request GET 'localhost:80/api/clothes/get?category=sneakers&priceLessThan=58999'
 
-
-    DELETE /api/shopping_cart/seller
-
-###Product
-- Add Product
+###Expected Response
+As you requested the response it will be something like:
 
 
-    POST /api/shopping_cart/product
+    [{
+        "sku": "000005",
+        "name": "Nathane leather sneakers",
+        "category": "sneakers",
+        "price": {
+            "original": 59000,
+            "final": 59000,
+            "discount_percentage": null,
+            "currency": "EUR"
+        }
+    }]
 
-Body request example with header "application/javascript":
+###Execute test
 
-    {
-    	"product_name" : "tiritas",
-    	"product_price" : 12.1,
-    	"seller_id": "cfa1f58d-a235-480d-adad-71bad26f8bae",
-    	"product_amount": 30
-    } 
-
-Response resource uuid:
-
-
-    {"resource_id":"cfa1f58d-a235-480d-adad-71bad26f8bae"}
-
-- Delete product
-
-
-    DELETE /api/shopping_cart/product
-
-#### Cart
-
-- Add/Delete products to cart
-
-- Increase / Decrease the number of units of a product (0 means deleted).
-
-- Remove a product from the cart
-
-
-    PUT /api/shopping_cart/cart
-
-
-Body request example with header "application/javascript":
-
-
-    {
-        "cart_id": "aa0e2259-b73e-48d3-8f1d-49582b6daddc",
-        "products" : [
-            {
-                "product_id": "e44ec3df-f092-4f28-b65c-693217e361e4",
-                "product_amount": 5
-            },
-            {
-                "product_id": "689df021-37c9-40fb-b0d0-d82d6da6ffce",
-                "product_amount": 2
-            }
-        ]
-    }
-
-- Delete the entire cart
-
-
-    DELETE /api/shopping_cart/cart/{cart_id}
-
-- Get the total amount of the cart.
-
-
-    GET /api/shopping_cart/cart/price/{cart_id}
-
-- Confirm Cart -> commit to buy.
-
-
-    POST /api/shopping_cart/confirm
-
-Body request example with header "application/javascript":
-
-    {
-        "cart_id" : "aa0e2259-b73e-48d3-8f1d-49582b6daddc"
-    }
-_______________________________________
+    make rt 
 
 Regards, Jose Beteta
