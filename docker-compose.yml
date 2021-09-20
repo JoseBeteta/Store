@@ -36,7 +36,7 @@ services:
       - mysql
     volumes:
       - type: bind
-        source: ../mytheresa-store
+        source: ../store
         target: /var/www/symfony
       - type: volume
         source: php

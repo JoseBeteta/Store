@@ -18,8 +18,8 @@ I've developed the challenge with my best practices experience, and my Hexagonal
 ### Raise project
 
 The following command will:
-* First make => start the containers (nginx, php, mysql) and runs composer.
-* Second make initialize the bd, and dump the requested data.
+* First make => start the containers (nginx, php, mysql).
+* Second make => runs composer and initialize the bd, and dump the requested data.
 
 
     make start
