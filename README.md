@@ -18,13 +18,14 @@ I've developed the challenge with my best practices experience, and my Hexagonal
 ### Raise project
 
 The following command will:
-* Start the containers (nginx, php, mysql).
-* Run composer.
-* Initialize the database and hydrate the database.
+* First make => start the containers (nginx, php, mysql) and runs composer.
+* Second make initialize the bd, and dump the requested data.
 
 
+    make start
+    make iv
 
-    make start 
+
 
 ### Usage
 I developed a restfull api with the endpoint requested:

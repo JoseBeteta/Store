@@ -32,6 +32,8 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+    depends_on:
+      - mysql
     volumes:
       - type: bind
         source: ../mytheresa-store
@@ -43,7 +45,6 @@ services:
     env_file:
       - .env
     user: 0:0
-    command: sh -c "php bin/console doctrine:schema:create && php bin/console doctrine:schema:update --force && php bin/console mytheresa:database:prepare"
 
 volumes:
   mysql:
