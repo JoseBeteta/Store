@@ -28,7 +28,7 @@ class Cloth
         $this->discount = $discount;
     }
 
-    public function category()
+    public function category() : Category
     {
         return $this->category;
     }

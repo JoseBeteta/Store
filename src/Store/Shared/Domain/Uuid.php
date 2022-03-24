@@ -3,11 +3,6 @@ declare(strict_types=1);
 
 namespace App\Store\Shared\Domain;
 
-use Exception;
-use Ramsey\Uuid\Uuid as RamseyUuid;
-use ShoppingCart\Common\Types\Domain\Exception\InvalidUuidClassException;
-use ShoppingCart\Common\Types\Domain\Exception\InvalidUuidException;
-
 class Uuid extends ValueObject
 {
     /**
@@ -18,15 +13,6 @@ class Uuid extends ValueObject
     public function __construct(string $value)
     {
         $this->setValue($value);
-    }
-
-    /**
-     * @return Uuid
-     * @throws Exception
-     */
-    public static function create(): self
-    {
-        return new self(RamseyUuid::uuid4()->toString());
     }
 
     /**
@@ -58,11 +44,6 @@ class Uuid extends ValueObject
         return $this->value();
     }
 
-    /**
-     * @param self|ValueObject $o
-     *
-     * @return bool
-     */
     protected function equalValues(ValueObject $o): bool
     {
         return $this->value() == $o->value();

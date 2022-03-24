@@ -7,15 +7,18 @@ use App\Store\Categories\Domain\Category;
 use App\Store\Categories\Domain\CategoryCollection;
 use App\Store\Categories\Domain\CategoryId;
 use App\Store\Categories\Domain\CategoryRepositoryInterface;
-use App\Store\Shared\Domain\Uuid;
+use App\Store\Shared\Domain\UuidProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 class DoctrineCategoryRepository extends EntityRepository implements CategoryRepositoryInterface
 {
-    public function __construct(EntityManagerInterface $em)
+    private $uuidProvider;
+
+    public function __construct(EntityManagerInterface $em, UuidProvider $provider)
     {
+        $this->uuidProvider = $provider;
         parent::__construct($em, new ClassMetadata(Category::class));
     }
 
@@ -36,6 +39,6 @@ class DoctrineCategoryRepository extends EntityRepository implements CategoryRep
 
     public function nextId(): CategoryId
     {
-        return new CategoryId(Uuid::create()->value());
+        return new CategoryId($this->uuidProvider->provide());
     }
 }

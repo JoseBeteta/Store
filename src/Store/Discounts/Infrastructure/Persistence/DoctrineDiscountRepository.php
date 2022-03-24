@@ -3,22 +3,25 @@ declare(strict_types=1);
 
 namespace App\Store\Discounts\Infrastructure\Persistence;
 
-use App\Store\Categories\Domain\Category;
 use App\Store\Discounts\Domain\Discount;
 use App\Store\Discounts\Domain\DiscountCollection;
 use App\Store\Discounts\Domain\DiscountId;
 use App\Store\Discounts\Domain\DiscountRepositoryInterface;
-use App\Store\Shared\Domain\Uuid;
-use Doctrine\ORM\EntityManager;
+use App\Store\Shared\Domain\UuidProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-class DoctrineDiscountRepositoryInterface extends EntityRepository implements DiscountRepositoryInterface
+final class DoctrineDiscountRepository extends EntityRepository implements DiscountRepositoryInterface
 {
-    public function __construct(EntityManagerInterface $em)
-    {
+    private $uuidProvider;
+
+    public function __construct(
+        EntityManagerInterface $em,
+        UuidProvider $provider
+    ) {
         parent::__construct($em, new ClassMetadata(Discount::class));
+        $this->uuidProvider = $provider;
     }
 
     public function save(Discount $discount): void
@@ -37,6 +40,6 @@ class DoctrineDiscountRepositoryInterface extends EntityRepository implements Di
 
     public function nextId(): DiscountId
     {
-        return new DiscountId(Uuid::create()->value());
+        return new DiscountId($this->uuidProvider->provide());
     }
 }
